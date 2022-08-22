@@ -1,10 +1,16 @@
+import { useState, useEffect } from 'react';
+import * as moviesApi from '../services/api';
+
 export default function HomeView() {
+  const [movies, setMovies] = useState(null);
+
+  useEffect(() => {
+    moviesApi.fetchTrending().then(setMovies);
+  }, []);
+
   return (
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, suscipit
-      soluta, distinctio quis beatae, similique fugiat inventore neque ipsam non
-      possimus esse impedit iure accusamus ad et reprehenderit voluptate
-      consequatur.
-    </p>
+    <ul>
+      {movies && movies.map(movie => <li key={movie.id}>{movie.title}</li>)}
+    </ul>
   );
 }
