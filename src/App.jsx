@@ -5,7 +5,6 @@ import Content from './components/Content/Content';
 import HomeView from './views/HomeView';
 import Movies from './views/Movies';
 import NotFound from 'views/NotFound';
-import Footer from './components/Footer/Footer';
 
 export default function App() {
   return (
@@ -18,7 +17,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Content>
-      <Footer name="Roman Bezuhlyi" href="https://github.com/RomanBezuhlyi" />
     </Container>
   );
 }

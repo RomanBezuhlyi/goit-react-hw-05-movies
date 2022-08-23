@@ -1,6 +1,6 @@
 const axios = require('axios');
 const KEY = 'f188c2fa569eae3a4b1ba6187aeb7327';
-axios.default.baseURL = 'https://api.themoviedb.org/3/';
+axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
 const fetchData = async ({ path = '' }) => {
   const response = await axios.get(path);
