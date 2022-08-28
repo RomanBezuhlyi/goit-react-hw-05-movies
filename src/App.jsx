@@ -1,22 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
-import AppBar from './components/AppBar/AppBar';
-import Container from './components/Container/Container';
-import Content from './components/Content/Content';
+import Layout from 'components/Layout/Layout';
 import HomeView from './views/HomeView';
 import Movies from './views/Movies';
+import MovieDetails from 'views/MovieDetails';
 import NotFound from 'views/NotFound';
 
 export default function App() {
   return (
-    <Container>
-      <AppBar />
-      <Content>
-        <Routes>
-          <Route path="/" element={<HomeView />}></Route>
-          <Route path="movies" element={<Movies />}></Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Content>
-    </Container>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomeView />} />
+        <Route path="movies" element={<Movies />} />
+        <Route path="movies/:movieId" element={<MovieDetails />}></Route>
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }

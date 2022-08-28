@@ -1,3 +1,8 @@
-export default function NotFound() {
-  return <h1>404 Сторінка не знайдена</h1>;
-}
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+const NotFound = () => {
+  const navigate = useNavigate();
+  useEffect(() => navigate('/', { replace: true }), [navigate]);
+};
+
+export default NotFound;
