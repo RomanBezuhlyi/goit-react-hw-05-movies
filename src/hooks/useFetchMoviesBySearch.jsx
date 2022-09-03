@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
 import * as moviesApi from '../services/movies-api';
 import { STATUS } from 'utilities/status';
-
-export const useFetchTrending = () => {
-  const [status, setStatus] = useState(STATUS.IDLE);
+export const useFetchMoviesBySearch = query => {
   const [movies, setMovies] = useState(null);
+  const [status, setStatus] = useState(STATUS.IDLE);
 
   useEffect(() => {
+    if (!query) {
+      return;
+    }
     setStatus(STATUS.PENDING);
     moviesApi
-      .fetchTrending()
+      .fetchMoviesBySearch({ query })
       .then(data => {
-        const movies = data.results;
-        setMovies(movies);
+        setMovies(data.results);
         setStatus(STATUS.RESOLVED);
       })
       .catch(({ message }) => {
         console.log(message);
         setStatus(STATUS.REJECTED);
       });
-  }, []);
-
-  return { movies, status };
+  }, [query]);
+  return { status, movies };
 };

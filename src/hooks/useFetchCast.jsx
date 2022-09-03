@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import * as moviesApi from '../services/movies-api';
 import { STATUS } from 'utilities/status';
 
-export const useFetchTrending = () => {
+export const useFetchCast = () => {
+  const [cast, setCast] = useState(null);
+  const { movieId } = useParams();
   const [status, setStatus] = useState(STATUS.IDLE);
-  const [movies, setMovies] = useState(null);
 
   useEffect(() => {
     setStatus(STATUS.PENDING);
     moviesApi
-      .fetchTrending()
+      .fetchMovieCredits({ movieId })
       .then(data => {
-        const movies = data.results;
-        setMovies(movies);
+        setCast(data.cast);
         setStatus(STATUS.RESOLVED);
       })
       .catch(({ message }) => {
         console.log(message);
         setStatus(STATUS.REJECTED);
       });
-  }, []);
-
-  return { movies, status };
+  }, [movieId]);
+  return { status, cast };
 };
